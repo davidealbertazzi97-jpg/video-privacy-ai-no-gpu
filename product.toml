@@ -1,0 +1,7 @@
+[product]
+name = "Video Privacy Studio"
+slug = "video-privacy-studio"
+version = "0.1.0"
+description_en = "Local CPU workstation for face, license plate, screen, and sensitive region blurring on MP4/MOV/AVI videos."
+description_it = "Workstation locale per la privacy nei video: oscuramento volti, targhe, schermi e targhette sensibili su CPU."
+default_language = "it"

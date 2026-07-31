@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="it">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="color-scheme" content="light dark">
+    <title>Video Privacy Studio</title>
+    <link rel="icon" href="/assets/icon.png" type="image/png">
+    <link rel="stylesheet" href="/assets/app.css">
+    <script src="/assets/app.js" defer></script>
+  </head>
+  <body>
+    <header>
+      <div class="brand">
+        <img src="/assets/icon.png" width="48" height="48" alt="Video Privacy Studio" style="border-radius: 8px;">
+        <div>
+          <h1 id="product-name">Video Privacy Studio</h1>
+          <p id="product-description">Workstation locale per l'oscuramento automatico di volti, targhe e testo nei video 100% offline su CPU.</p>
+        </div>
+      </div>
+      <div class="heading-actions">
+        <button id="clear-history-btn" type="button" class="danger-btn-sm" style="display:none;">🗑️ Elimina Tutta la Cronologia</button>
+      </div>
+    </header>
+
+    <main>
+      <!-- Privacy Banner -->
+      <section class="privacy-note">
+        <strong>🔒 100% Elaborazione Locale &amp; Riservata</strong>
+        <span>Tutti i video vengono elaborati frame per frame esclusivamente sulla CPU del tuo computer. Nessun dato lascia mai la tua macchina.</span>
+      </section>
+
+      <!-- Processing Form Panel -->
+      <section class="panel">
+        <h2>🎬 Carica Video da Oscurare</h2>
+        
+        <form id="upload-form">
+          <div class="file-upload-zone" id="drop-zone">
+            <input type="file" id="video-file-input" accept=".mp4,.mov,.avi,.mkv,.webm,.m4v,.3gp,.flv,.wmv,.ts,.mpg,.mpeg,.ogv" required>
+            <div class="drop-text" id="drop-text-content">
+              <span class="drop-icon">📹</span>
+              <strong>Trascina qui il tuo video oppure clicca per selezionarlo</strong>
+              <small>Formati supportati: MP4, MOV, AVI, MKV, WEBM, M4V, FLV, WMV (Max 2 GB)</small>
+            </div>
+          </div>
+
+          <div class="options-grid">
+            <div class="option-group">
+              <label for="redact-mode-select">Modalità di Oscuramento:</label>
+              <select id="redact-mode-select">
+                <option value="blur" selected>🌀 Sfocatura (Gaussian Blur)</option>
+                <option value="pixelate">🔲 Pixelatura (Pixelate)</option>
+                <option value="blackout">⬛ Oscuramento Totale (Blackout)</option>
+              </select>
+            </div>
+
+            <div class="option-group checkboxes">
+              <label><input type="checkbox" id="detect-faces-cb" checked> 👤 Rileva ed Oscura Volti</label>
+              <label><input type="checkbox" id="detect-plates-cb" checked> 🚗 Rileva ed Oscura Targhe Automobili</label>
+            </div>
+          </div>
+
+          <button type="submit" id="submit-btn" class="primary-btn-lg">🎬 Avvia Oscuramento Video</button>
+        </form>
+
+        <p id="process-status" class="status-msg"></p>
+      </section>
+
+      <!-- Output Preview Panel -->
+      <section id="output-panel" class="panel output-panel" style="display:none;">
+        <h2>✨ Video Anonimizzato Elaborato</h2>
+        
+        <div class="video-container">
+          <video id="video-preview" controls preload="metadata"></video>
+        </div>
+
+        <div class="download-actions">
+          <a id="download-video-btn" class="download-primary-btn" download>⬇️ Scarica Video Anonimizzato (.mp4)</a>
+          <a id="download-receipt-btn" class="download-secondary-btn" download>📜 Scarica Ricevuta Privacy (.json)</a>
+        </div>
+      </section>
+
+      <!-- History Panel -->
+      <section class="panel">
+        <h2>📜 Cronologia Elaborazioni Locali</h2>
+        <div id="jobs-list" class="jobs-list">Nessuna elaborazione recente.</div>
+      </section>
+    </main>
+
+    <footer>
+      <p>Video Privacy Studio &middot; 100% Local CPU Execution &middot; No Telemetry &middot; Privacy Guaranteed</p>
+    </footer>
+  </body>
+</html>

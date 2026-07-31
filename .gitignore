@@ -1,0 +1,32 @@
+# Environments and Virtualenvs
+.venv/
+env/
+venv/
+ENV/
+.tools/
+
+# Python Cache & Bytecode
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.ruff_cache/
+
+# Build & Dist Outputs
+build/
+dist/
+*.spec
+
+# Application Local Data & DBs
+data/
+state/
+outputs/
+*.sqlite3
+launcher.json
+privacy_receipt.json
+
+# OS and IDE Files
+.DS_Store
+.vscode/
+.idea/
+*.log
