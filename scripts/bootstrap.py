@@ -54,6 +54,12 @@ def main() -> int:
     print(json.dumps(plan, indent=2))
     if args.dry_run:
         return 0
+    if (system, machine) not in SUPPORTED:
+        supported = ", ".join(SUPPORTED.values())
+        raise SystemExit(
+            f"Unsupported installer platform: {system}/{machine}. "
+            f"Supported platforms: {supported}."
+        )
 
     uv = os.environ.get("LOCAL_AI_APP_UV") or shutil.which("uv")
     if not uv:

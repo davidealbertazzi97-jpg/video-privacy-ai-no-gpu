@@ -27,6 +27,7 @@ IGNORED_SUFFIXES = {".pyc", ".pyo"}
 # Files to include in cross-platform release archives
 RELEASE_FILES = [
     "app",
+    "native",
     "runtime_guard",
     "scripts",
     "static",
@@ -42,6 +43,7 @@ RELEASE_FILES = [
     "SECURITY.md",
     "start.ps1",
     "start.sh",
+    "THIRD_PARTY_NOTICES.md",
 ]
 
 
@@ -74,9 +76,7 @@ def create_zip_release(name: str, target_zip: Path) -> None:
                 zip_file.write(path, arcname=f"{name}/{rel}")
             elif path.is_dir():
                 for sub in path.rglob("*"):
-                    if sub.is_file() and not should_exclude(
-                        sub.relative_to(APP_DIR)
-                    ):
+                    if sub.is_file() and not should_exclude(sub.relative_to(APP_DIR)):
                         zip_file.write(
                             sub, arcname=f"{name}/{sub.relative_to(APP_DIR)}"
                         )
@@ -87,7 +87,7 @@ def main() -> None:
     print("--- BUILDING VIDEO PRIVACY STUDIO RELEASE PACKAGES ---")
 
     linux_tar = DIST_DIR / f"{APP_NAME}-v{VERSION}-Linux-x86_64.tar.gz"
-    macos_tar = DIST_DIR / f"{APP_NAME}-v{VERSION}-macOS-Universal.tar.gz"
+    macos_tar = DIST_DIR / f"{APP_NAME}-v{VERSION}-macOS-Apple-Silicon.tar.gz"
     win_zip = DIST_DIR / f"{APP_NAME}-v{VERSION}-Windows-x64.zip"
 
     create_tar_release(f"{APP_NAME}-v{VERSION}", linux_tar)

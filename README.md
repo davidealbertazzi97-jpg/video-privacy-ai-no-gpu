@@ -26,14 +26,21 @@ Workstation locale per l'oscuramento automatico della privacy nei video (volti e
 
 ## 🚀 Avvio Rapido
 
+Installer supportati: Linux x86-64, macOS Apple Silicon e Windows x86-64.
+
 ```bash
-# Clone della repository
+# Linux o macOS
 git clone https://github.com/davidealbertazzi97-jpg/video-privacy-ai-no-gpu.git
 cd video-privacy-ai-no-gpu
-
-# Installazione dipendenze ed avvio ambiente
 ./install.sh
 ./start.sh
+```
+
+Su Windows, dopo avere estratto l'archivio Windows, esegui in PowerShell:
+
+```powershell
+.\install.ps1
+.\start.ps1
 ```
 
 *(L'applicazione si aprirà automaticamente nel browser all'indirizzo `http://127.0.0.1:8765`)*.
@@ -75,3 +82,9 @@ A privacy-first local video workstation for automatic face and license plate red
 - **Integrated Video Player**: Instant HTML5 preview of the redacted output video.
 - **Privacy Audit Receipt (.json)**: Machine-readable report with resolution, FPS, total frames, and redaction count.
 - **Local History Management**: Internal SQLite job tracking with full data control.
+
+## Installation
+
+Supported installers: Linux x86-64, macOS Apple Silicon, and Windows x86-64.
+Run `./install.sh` followed by `./start.sh` on Linux or macOS. On Windows,
+run `.\install.ps1` followed by `.\start.ps1` in PowerShell.
