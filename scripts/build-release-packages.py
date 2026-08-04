@@ -14,6 +14,16 @@ DIST_DIR.mkdir(parents=True, exist_ok=True)
 VERSION = "1.0.0"
 APP_NAME = "Video-Privacy-Studio"
 
+IGNORED_NAMES = {
+    "__pycache__",
+    ".DS_Store",
+    ".mypy_cache",
+    ".pytest_cache",
+    ".ruff_cache",
+    "Thumbs.db",
+}
+IGNORED_SUFFIXES = {".pyc", ".pyo"}
+
 # Files to include in cross-platform release archives
 RELEASE_FILES = [
     "app",
@@ -35,13 +45,23 @@ RELEASE_FILES = [
 ]
 
 
+def should_exclude(path: Path) -> bool:
+    return any(part in IGNORED_NAMES for part in path.parts) or (
+        path.suffix.lower() in IGNORED_SUFFIXES
+    )
+
+
+def clean_tar_entry(info: tarfile.TarInfo) -> tarfile.TarInfo | None:
+    return None if should_exclude(Path(info.name)) else info
+
+
 def create_tar_release(name: str, target_tar: Path) -> None:
     print(f"Building {target_tar.name}...")
     with tarfile.open(target_tar, "w:gz") as tar:
         for rel in RELEASE_FILES:
             path = APP_DIR / rel
             if path.exists():
-                tar.add(path, arcname=f"{name}/{rel}")
+                tar.add(path, arcname=f"{name}/{rel}", filter=clean_tar_entry)
     print(f"Created {target_tar.name} ({target_tar.stat().st_size} bytes)")
 
 
@@ -54,7 +74,9 @@ def create_zip_release(name: str, target_zip: Path) -> None:
                 zip_file.write(path, arcname=f"{name}/{rel}")
             elif path.is_dir():
                 for sub in path.rglob("*"):
-                    if sub.is_file() and "__pycache__" not in sub.parts:
+                    if sub.is_file() and not should_exclude(
+                        sub.relative_to(APP_DIR)
+                    ):
                         zip_file.write(
                             sub, arcname=f"{name}/{sub.relative_to(APP_DIR)}"
                         )

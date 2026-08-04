@@ -18,6 +18,10 @@ cp -r "${APP_DIR}/static" "${APP_DIR_STAGE}/usr/bin/"
 cp "${APP_DIR}/product.toml" "${APP_DIR_STAGE}/usr/bin/"
 cp "${APP_DIR}/requirements-core.txt" "${APP_DIR_STAGE}/usr/bin/"
 
+# Never ship local bytecode: .pyc files embed the builder's absolute paths.
+find "${APP_DIR_STAGE}" -type f \( -name '*.pyc' -o -name '*.pyo' -o -name '.DS_Store' \) -delete
+find "${APP_DIR_STAGE}" -depth -type d -name '__pycache__' -empty -delete
+
 if [[ -f "${APP_DIR}/static/icon.png" ]]; then
   cp "${APP_DIR}/static/icon.png" "${APP_DIR_STAGE}/usr/share/icons/hicolor/scalable/apps/video-privacy-studio.png"
   cp "${APP_DIR}/static/icon.png" "${APP_DIR_STAGE}/video-privacy-studio.png"
